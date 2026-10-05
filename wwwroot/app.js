@@ -113,7 +113,7 @@ function route() {
   $$(".nav-item").forEach(a => a.classList.toggle("active", a.dataset.route === name));
   document.title = `${name[0].toUpperCase() + name.slice(1)} · Academic Resource Tracker`;
   window.scrollTo({ top: 0 });
-  refresh();
+  return refresh();
 }
 
 async function refresh() {
@@ -622,5 +622,14 @@ document.addEventListener("keydown", e => {
 // =====================================================================
 // Start
 // =====================================================================
+function hideSplash() {
+  const splash = $("#splash");
+  if (!splash || splash.classList.contains("out")) return;
+  splash.classList.add("out");
+  splash.addEventListener("transitionend", () => splash.remove(), { once: true });
+}
+
 window.addEventListener("hashchange", route);
-route();
+// Long enough to avoid a flash on fast loads; the timeout covers a slow or sleeping server.
+Promise.all([route(), new Promise(r => setTimeout(r, 900))]).finally(hideSplash);
+setTimeout(hideSplash, 8000);
