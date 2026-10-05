@@ -31,7 +31,7 @@ JSON data file (Data/tracker.json)
 
 | Layer | Location | Role |
 |---|---|---|
-| Frontend | `wwwroot/` | Single-page UI with Dashboard, Resources and Courses tabs. Calls the API with `fetch()`. Served by the same app. |
+| Frontend | `wwwroot/` | Single-page UI with Overview, Resources and Courses pages, light and dark themes. Plain JavaScript calling the API with `fetch()`. Served by the same app. |
 | Backend | `Program.cs` | Startup, REST endpoints, mapping to response objects, CSV export. |
 | Persistence | `Services/DataStore.cs` | Thread-safe, all-or-nothing reads and writes of the JSON data file. |
 | Reporting | `Services/AnalyticsService.cs` | Calculates the dashboard figures. |
@@ -56,9 +56,9 @@ StudentResourceTracker/
 │   ├── BadRequestExceptionHandler.cs  Malformed request -> 400
 │   └── SeedData.cs                    First-run sample data
 ├── wwwroot/
-│   ├── index.html                     Page layout and dialogs
-│   ├── app.js                         Front-end logic
-│   └── styles.css                     Styling (light and dark mode)
+│   ├── index.html                     Layout, dialogs and icon set
+│   ├── app.js                         Routing, rendering and API calls
+│   └── styles.css                     Design system (light and dark themes)
 ├── tests/StudentResourceTracker.Tests/  xUnit unit and API tests
 ├── docs/DOCUMENTATION.md              This documentation
 ├── Dockerfile                         Container build used for deployment
@@ -184,15 +184,25 @@ curl -X POST http://localhost:5000/api/resources \
 
 ## 8. Using the application
 
-1. **Courses tab:** add a course with *+ Add course* (code and title are required). Edit or delete courses
-   from the table; deleting asks for confirmation and says how many resources will also be deleted.
-2. **Resources tab:** add a resource with *+ Add resource*: pick a course, enter a title and type, and
-   optionally a status, priority, due date, link, tags (comma separated) and notes.
-3. Change progress with the status dropdown on each row, without opening the edit form.
-4. Filter by course, type, status or priority, tick *Overdue only*, or search titles, notes and tags.
-5. Click *Export CSV* to download every resource as a spreadsheet.
-6. **Dashboard tab:** see the summary cards, progress per course, overdue and upcoming deadlines, resources by
-   type and open items by priority.
+The app has three pages, reached from the sidebar (or the bottom bar on phones):
+
+1. **Courses:** each course is a card showing its code, lecturer, semester and progress. Add one with
+   *New course* (code and title are required). Hover a card to edit or delete it; deleting asks for
+   confirmation and says how many resources will also be deleted. *View resources* opens that course's list.
+2. **Resources:** add a resource with *New resource*: pick a course, enter a title and type, and optionally
+   a status, priority, due date, link, tags (comma separated) and notes.
+3. Change progress with the status pill on each row, without opening the edit form. Hover a row to edit or
+   delete it.
+4. Filter with the status tabs (which show counts), the course, type and priority menus, *Overdue only*, or
+   the search box (titles, notes and tags). *Clear filters* resets everything.
+5. *Export* (or *Export CSV* in the sidebar) downloads every resource as a spreadsheet.
+6. **Overview:** a completion ring, counts for in progress, not started, due this week and overdue, a
+   deadline timeline grouped into overdue, this week and later (click an item to edit it), progress per
+   course, the library mix by type, and open items by priority.
+7. The sidebar lists your courses; click one to jump to its resources. Toggle dark mode at the bottom of
+   the sidebar (your choice is remembered).
+
+Keyboard shortcuts: <kbd>/</kbd> focuses search, <kbd>N</kbd> opens a new resource, <kbd>Esc</kbd> closes a dialog.
 
 ## 9. Testing
 
