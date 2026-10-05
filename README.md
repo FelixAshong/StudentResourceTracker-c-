@@ -3,13 +3,18 @@
 A C# / ASP.NET Core (.NET 8) web app for tracking the study materials, assignments and
 deadlines for each of your courses, with a dashboard that reports your progress.
 
+- **Live demo:** _deployment link goes here_
+- **Full documentation:** [docs/DOCUMENTATION.md](docs/DOCUMENTATION.md)
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/FelixAshong/StudentResourceTracker-c-)
+
 ## Features
 - **Courses**: add / edit / delete (deleting a course removes its resources).
 - **Resources**: lecture notes, textbooks, videos, articles, assignments, past questions, links.
   Each has a course, status (Not started / In progress / Completed), priority, due date, URL, tags and notes.
 - **Filter and search** by course, type, status, priority, overdue-only, or free text (title, notes, tags).
 - **Dashboard**: completion rate, overdue and due-this-week counts, progress per course,
-  resources by type, open items by priority, and a list of upcoming deadlines.
+  resources by type, open items by priority, and lists of overdue and upcoming deadlines.
 - **CSV export** of all resources (opens cleanly in Excel).
 - Data is stored in a local JSON file (`Data/tracker.json`), created with sample data on first run.
 
@@ -21,7 +26,8 @@ Check your install: `dotnet --version`
 
 ## Run it
 ```bash
-# 1. Unzip, then open a terminal in the project folder
+# 1. Clone, then open a terminal in the project folder
+git clone https://github.com/FelixAshong/StudentResourceTracker-c-.git StudentResourceTracker
 cd StudentResourceTracker
 
 # 2. Run
@@ -47,7 +53,24 @@ StudentResourceTracker/
 │   ├── BadRequestExceptionHandler.cs  # Malformed requests -> 400 problem responses
 │   └── SeedData.cs             # First-run sample data
 ├── wwwroot/                    # Front end (HTML/CSS/vanilla JS)
-└── tests/StudentResourceTracker.Tests/  # xUnit unit + API tests
+├── tests/StudentResourceTracker.Tests/  # xUnit unit + API tests
+├── docs/                       # Full documentation
+├── Dockerfile                  # Container image used for deployment
+└── render.yaml                 # Render deployment blueprint
+```
+
+## Deployment (Render)
+The app runs on [Render](https://render.com) as a Docker web service, configured by `render.yaml`.
+In the Render dashboard choose **New → Blueprint**, connect this repository and apply (or use the button above).
+Every push to `main` redeploys automatically.
+
+On the free plan the data resets to the sample data whenever the service restarts or redeploys, and the
+service sleeps after about 15 minutes idle, so the first visit afterwards can take up to a minute.
+
+To run the container locally:
+```bash
+docker build -t student-resource-tracker .
+docker run -p 8080:8080 student-resource-tracker   # then open http://localhost:8080
 ```
 
 ## Tests
@@ -67,6 +90,7 @@ API tests run the real app in-process against a temporary data file, so your own
 | PATCH | `/api/resources/{id}/status` | Change status only |
 | GET | `/api/analytics/summary` | Dashboard figures |
 | GET | `/api/export/csv` | CSV download |
+| GET | `/healthz` | Health check |
 
 ## Configuration and tips
 - **Reset the data**: stop the app and delete `Data/tracker.json`; sample data is recreated on next run.

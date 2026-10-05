@@ -5,6 +5,10 @@ using StudentResourceTracker.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Hosting platforms (Render, Railway, Heroku-style) tell the app which port to use via PORT.
+if (Environment.GetEnvironmentVariable("PORT") is { Length: > 0 } port)
+    builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+
 builder.Services.ConfigureHttpJsonOptions(o =>
 {
     o.SerializerOptions.Converters.Add(new JsonStringEnumConverter(allowIntegerValues: false));
@@ -30,6 +34,8 @@ app.UseExceptionHandler();
 app.UseStatusCodePages();
 app.UseDefaultFiles();
 app.UseStaticFiles();
+
+app.MapGet("/healthz", () => Results.Ok(new { status = "ok" }));
 
 var api = app.MapGroup("/api");
 
