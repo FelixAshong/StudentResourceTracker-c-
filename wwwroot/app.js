@@ -6,8 +6,9 @@
 const TYPES = ["LectureNotes", "Textbook", "Video", "Article", "Assignment", "PastQuestion", "Link", "Other"];
 const STATUSES = ["NotStarted", "InProgress", "Completed"];
 const PRIORITIES = ["Low", "Medium", "High"];
-const TYPE_HUES = { LectureNotes: 205, Textbook: 168, Video: 340, Article: 38, Assignment: 262, PastQuestion: 14, Link: 120, Other: 225 };
-const COURSE_HUES = [168, 24, 262, 205, 340, 42, 128, 292, 188, 6];
+// Kept inside the blue band so courses and types stay on-brand (UG navy and white).
+const TYPE_HUES = { LectureNotes: 212, Textbook: 198, Video: 236, Article: 190, Assignment: 222, PastQuestion: 246, Link: 204, Other: 216 };
+const COURSE_HUES = [212, 194, 232, 204, 244, 220, 186, 228, 200, 238];
 const STATUS_DOT = { NotStarted: "var(--muted)", InProgress: "var(--info)", Completed: "var(--ok)" };
 const RING_CIRCUMFERENCE = 2 * Math.PI * 52;
 
