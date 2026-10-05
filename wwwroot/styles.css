@@ -2,23 +2,27 @@
    Tokens
    ===================================================================== */
 :root {
-  --bg: #f4f7fc;
+  /* University of Ghana palette: Legon navy on white */
+  --ug-navy: #002b5c;
+  --ug-navy-deep: #001a3a;
+
+  --bg: #f5f8fc;
   --surface: #ffffff;
-  --surface-2: #f8fafe;
-  --sunken: #edf2fa;
-  --ink: #0f1e3d;
-  --ink-2: #3c4a66;
-  --muted: #7b879e;
-  --line: #dfe6f2;
-  --line-2: #ebf0f8;
+  --surface-2: #f7f9fd;
+  --sunken: #eaf0f8;
+  --ink: #0a1f3f;
+  --ink-2: #364a6a;
+  --muted: #74839c;
+  --line: #d9e2ef;
+  --line-2: #e8eef6;
 
-  --accent: #1a56db;
-  --accent-hover: #1546b3;
+  --accent: #003a7a;
+  --accent-hover: var(--ug-navy);
   --accent-ink: #ffffff;
-  --accent-soft: #e8f0fd;
+  --accent-soft: #e4ecf7;
 
-  --side-bg: linear-gradient(180deg, #1449b8 0%, #0d3485 100%);
-  --side-bg-solid: #0f3b97;
+  --side-bg: linear-gradient(180deg, var(--ug-navy) 0%, var(--ug-navy-deep) 100%);
+  --side-bg-solid: var(--ug-navy);
 
   --danger: #c2362b;
   --danger-soft: #fbe9e7;
@@ -26,8 +30,8 @@
   --warn-soft: #fbf1df;
   --ok: #18804f;
   --ok-soft: #e2f3ea;
-  --info: #2563eb;
-  --info-soft: #e6eefd;
+  --info: #1d63c4;
+  --info-soft: #e5eefa;
 
   --radius: 12px;
   --radius-sm: 8px;
@@ -45,23 +49,23 @@
 }
 
 [data-theme="dark"] {
-  --bg: #0a1222;
-  --surface: #0f1a30;
-  --surface-2: #122038;
-  --sunken: #0c1629;
-  --ink: #e8eefb;
-  --ink-2: #b3c0da;
-  --muted: #7686a6;
-  --line: #1e2d4a;
-  --line-2: #182641;
+  --bg: #06101f;
+  --surface: #0b1830;
+  --surface-2: #0f1e3a;
+  --sunken: #081428;
+  --ink: #eaf0fa;
+  --ink-2: #b4c2da;
+  --muted: #7384a3;
+  --line: #1b2c4b;
+  --line-2: #152441;
 
-  --accent: #5b9bff;
-  --accent-hover: #7aaeff;
-  --accent-ink: #06122a;
-  --accent-soft: rgba(91, 155, 255, .14);
+  --accent: #8db8f2;
+  --accent-hover: #a9caf6;
+  --accent-ink: #001a3a;
+  --accent-soft: rgba(141, 184, 242, .14);
 
-  --side-bg: linear-gradient(180deg, #0f2a5e 0%, #0a1c40 100%);
-  --side-bg-solid: #0d2350;
+  --side-bg: linear-gradient(180deg, #002250 0%, #00142e 100%);
+  --side-bg-solid: #001d44;
 
   --danger: #f08a7c;
   --danger-soft: rgba(240, 138, 124, .13);
